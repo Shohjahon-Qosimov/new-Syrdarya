@@ -1,0 +1,357 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  scroll-behavior: smooth;
+}
+
+:root {
+    --color-bg: #1f1f38;
+    --color-bg-variant: #28284f;
+    --color-primary: #007bff;
+    /* Blue */
+    --color-primary-variant: #0056b3;
+    /* Darker Blue */
+    --color-accent: #ff4500;
+    /* Orange-Red */
+    --color-accent-variant: #cc3700;
+    /* Darker Orange-Red */
+    --color-white: #fff;
+    --color-light: #f8f8f8;
+    /* Light Gray */
+  
+    --transition: all 400ms ease;
+  
+    --container-width-lg: 75%;
+    --container-width-md: 86%;
+    --container-width-sm: 90%;
+  
+    --black-gradient: linear-gradient(
+      144.39deg,
+      #ffffff -278.56%,
+      #6d6d6d -78.47%,
+      #11101d 91.61%
+    );
+    --card-shadow: 0px 20px 100px -10px rgba(66, 71, 91, 0.1);
+  }
+
+  
+
+  .container {
+    width: var(--container-width-sm);
+    margin: 5rem auto;
+    overflow-x:hidden;
+    
+  }
+
+/* ============ Register ============ */
+
+.main__title {
+    font-size: 3rem;
+    color: #4CAF4F;
+    text-align: center;
+    margin-top: 4rem;
+  
+    @media screen and (min-width: 1200px) {
+      font-size: 5rem;
+      margin-top: 6rem;
+    }
+  
+  }
+
+  .auth__form {
+    backdrop-filter: blur(2px);
+    background-color: #0853a3;
+    box-shadow: inset;
+    margin: auto;
+    padding: 30px;
+    border-radius: 5px;
+    width: var(--container-width-md);
+    max-width: 30rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .auth__form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 3px;
+    background-color: var(--color-light);
+    color: var(--color-bg-variant);
+  
+    &::placeholder {
+      font-size: 1rem;
+      color: var(--color-bg-variant);
+    }
+  
+    &:valid {
+      font-size: 1rem;
+      color: var(--color-bg-variant);
+    }
+  }
+  
+  
+  .auth__container .main__title {
+    font-size: 3rem;
+  
+    @media screen and (min-width: 1200px) {
+      margin: 1rem 0;
+    }
+  }
+  
+  .auth__container .main__title {
+    font-size: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .auth__container .main__title svg {
+    margin-left: 10px;
+    /* Add some space between the icon and the text */
+  }
+
+
+/* ============ Spinner ============ */
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-top: 4px solid var(--color-primary);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Animate */
+
+section .animate {
+  transition: 1s;
+}
+
+.sec-1 .animate {
+  transform: translateX(-100%);
+ 
+}
+.sec-1 .show-animate .animate {
+  transform: translateX(0);
+}
+
+/* Murojat */
+
+/* *{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+} */
+/* body{
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background-repeat: no-repeat;
+  justify-content: center;
+  background: url('https://sirdaryomurojaat.netlify.app/dist/img/%D0%93%D0%BE%D1%80%D0%BE%D0%B4_%D0%93%D1%83%D0%BB%D0%B8%D1%81%D1%82%D0%B0%D0%BD.jpg');
+} */
+.form-container{
+
+  position: relative;
+  max-width: 900px;
+  width: 100%;
+  border-radius: 6px;
+  padding: 30px;
+  margin: 0 15px;
+  background-color: #fff;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+}
+.form-container header{
+  /* position: relative; */
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  z-index: -2;
+}
+.form-container header::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 3px;
+  width: 27px;
+  border-radius: 8px;
+  background-color: #4070f4;
+ 
+}
+.form-container form{
+  position: relative;
+  margin-top: 16px;
+  min-height: 440px;
+  background-color: #fff;
+  overflow: hidden;
+}
+.form-container form .form{
+  position: absolute;
+  background-color: #fff;
+  transition: 0.3s ease;
+}
+.form-container form .form.second{
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(100%);
+}
+form.secActive .form.second{
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+form.secActive .form.first{
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-100%);
+}
+.form-container form .title{
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  margin: 6px 0;
+  color: #333;
+}
+.form-container form .fields{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+form .fields .input-field{
+  display: flex;
+  width: calc(100% / 3 - 15px);
+  flex-direction: column;
+  margin: 4px 0;
+}
+.input-field label{
+  font-size: 12px;
+  font-weight: 500;
+  color: #2e2e2e;
+}
+.input-field input, select{
+  outline: none;
+  font-size: 14px;
+  font-weight: 400;
+  color: #333;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+  padding: 0 15px;
+  height: 42px;
+  margin: 8px 0;
+}
+.input-field input :focus,
+.input-field select:focus{
+  box-shadow: 0 3px 6px rgba(0,0,0,0.13);
+}
+.input-field select,
+.input-field input[type="date"]{
+  color: #707070;
+}
+.input-field input[type="date"]:valid{
+  color: #333;
+}
+.container form button, .backBtn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 45px;
+  max-width: 200px;
+  width: 100%;
+  border: none;
+  outline: none;
+  color: #fff;
+  border-radius: 5px;
+  margin: 25px 0;
+  background-color: #4070f4;
+  transition: all 0.3s linear;
+  cursor: pointer;
+}
+.container form .btnText{
+  font-size: 14px;
+  font-weight: 400;
+}
+form button:hover{
+  background-color: #265df2;
+}
+form button i,
+form .backBtn i{
+  margin: 0 6px;
+}
+form .backBtn i{
+  transform: rotate(180deg);
+}
+form .buttons{
+  display: flex;
+  align-items: center;
+}
+form .buttons button , .backBtn{
+  margin-right: 14px;
+}
+
+@media (max-width: 750px) {
+  .container form{
+      overflow-y: scroll;
+  }
+  .container form::-webkit-scrollbar{
+     display: none;
+  }
+  form .fields .input-field{
+      width: calc(100% / 2 - 15px);
+  }
+  .form-container form{
+    min-height: 550px;
+  }
+}
+
+@media (max-width: 550px) {
+  form .fields .input-field{
+      width: fit-content;
+  }
+  .form-container form{
+    min-height: 900px;
+  }
+  .details {
+    width: 250px;
+  }
+  .mazmun, .mfy {
+    max-width: 250px;
+  }
+}
+
+/* Login */
+
+@media (max-width: 600px) {
+  .forgot {
+    justify-content: space-between;
+    gap: 50px;
+    margin-left: 30px;
+  }
+}
