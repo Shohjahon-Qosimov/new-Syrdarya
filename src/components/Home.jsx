@@ -4,32 +4,12 @@ import check from "../assets/check.svg";
 import humans from "../assets/humans.svg";
 import humans1 from "../assets/humans1.png";
 import gerb1 from "../assets/gerb1.png";
-import { NavLink, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { useState } from "react";
-import { useEffect } from "react";
-
-axios.defaults.xsrfCookieName = "csrftoken";
-axios.defaults.xsrfHeaderName = "X-CSRFToken";
-axios.defaults.withCredentials = true;
-
-const client = axios.create({
-  baseURL: "https://sirdaryoapi.pythonanywhere.com",
-});
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { LoginContext } from "../context/LoginContext";
 
 const Home = () => {
-  const [currentUser, setCurrentUser] = useState();
-
-  useEffect(() => {
-    client
-      .get("/api/user")
-      .then(function (res) {
-        setCurrentUser(true);
-      })
-      .catch(function (error) {
-        setCurrentUser(false);
-      });
-  }, []);
+  const { currentUser } = useContext(LoginContext);
 
   const navigate = useNavigate();
 

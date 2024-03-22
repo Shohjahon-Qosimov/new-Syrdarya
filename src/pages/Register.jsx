@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { BiUser } from "react-icons/bi";
-import { useDispatch, useSelector } from "react-redux";
-import { register, reset } from "../auth/authSlice";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+import { useNavigate } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import axios, { Axios } from "axios";
+import { useContext } from "react";
+import { LoginContext } from "../context/LoginContext";
+import { jwtDecode } from "jwt-decode";
 
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
@@ -16,44 +19,62 @@ const client = axios.create({
 });
 
 const Register = () => {
-  const [currentUser, setCurrentUser] = useState();
-  const [registrationToggle, setRegistrationToggle] = useState(false);
+  const { setCurrentUser } = useContext(LoginContext);
+  const { currentUser } = useContext(LoginContext);
+
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   // const [password2, setPassword2] = useState("");
 
-  useEffect(() => {
-    client
-      .get("/api/user")
-      .then(function (res) {
-        setCurrentUser(true);
-      })
-      .catch(function (error) {
-        setCurrentUser(false);
-      });
-  }, []);
-
-  function submitRegistration(e) {
+  let submitRegistration = async (e) => {
     e.preventDefault();
-    client
-      .post("/api/register", {
-        email: email,
-        username: username,
-        password: password,
-        // password2: password2,
-      })
-      .then(function (res) {
-        client
-          .post("/api/login", {
-            email: email,
-            password: password,
-          })
-          .then(function (res) {
-            setCurrentUser(true);
-          });
-      });
-  }
+    let response = await fetch(
+      "http://sirdaryoapi.pythonanywhere.com/api/register/",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: email,
+          username: username,
+          password: password,
+        }),
+      }
+    );
+    let resData = await response.json();
+    console.log(resData);
+    if (response.status === 201) {
+      localStorage.setItem("emailData", resData.email);
+      toast.success("Muvafaqqiyatli ro'yhatdan o'tdingiz!");
+      navigate("/login");
+    } else {
+      toast.error("Nimadir xato ketdi!");
+    }
+  };
+
+  // function submitRegistration(e) {
+  //   e.preventDefault();
+  //   client
+  //     .post("/api/register", {
+  //       email: email,
+  //       username: username,
+  //       password: password,
+  //       // password2: password2,
+  //     })
+  //     .then(function (res) {
+  //       client
+  //         .post("/api/login", {
+  //           email: email,
+  //           password: password,
+  //         })
+  //         .then(function (res) {
+  //           console.log(res);
+  //           setCurrentUser(jwtDecode(res.access));
+  //           // navigate("/login");
+  //           toast.success("Muvafaqqiyatli ro'yhatdan o'tdingiz!");
+  //         });
+  //     });
+  // }
   // const [formData, setFormData] = useState({
   //   username: "",
   //   email: "",
@@ -66,9 +87,7 @@ const Register = () => {
   // const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.auth
-  );
+  const { isLoading } = useSelector((state) => state.auth);
 
   // const handleChange = (e) => {
   //   setFormData((prev) => ({
@@ -93,21 +112,6 @@ const Register = () => {
   //   }
   // };
 
-  // useEffect(() => {
-  //   if (isError) {
-  //     toast.error(message);
-  //   }
-
-  //   if (isSuccess || user) {
-  //     navigate("/");
-  //     toast.success(
-  //       "An activation email has been sent to your email. Please check your email"
-  //     );
-  //   }
-
-  //   dispatch(reset());
-  // }, [isError, isSuccess, user, navigate, dispatch]);
-
   return (
     <>
       <div className="container auth__container">
@@ -115,7 +119,7 @@ const Register = () => {
           Ro'yhatdan o'tish <BiUser />{" "}
         </h1>
 
-        {isLoading && <Spinner />}
+        {currentUser && <Spinner />}
 
         <form onSubmit={(e) => submitRegistration(e)} className="auth__form">
           <input
@@ -163,7 +167,7 @@ const Register = () => {
             className="bg-brandPrimary text-white py-2 px-4 transition-all duration-300 rounded hover:bg-neutralDGray"
             type="submit"
             // onClick={handleSubmit}
-            onClick={() => navigate("/login")}
+            // onClick={() => navigate("/login")}
           >
             Register
           </button>

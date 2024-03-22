@@ -1,78 +1,18 @@
-import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BiLogInCircle } from "react-icons/bi";
-import { useDispatch, useSelector } from "react-redux";
-import { login, reset, getUserInfo } from "../auth/authSlice";
-import { toast } from "react-toastify";
-import axios, { Axios } from "axios";
+import { useSelector } from "react-redux";
+
 import Spinner from "../components/Spinner";
-
-axios.defaults.xsrfCookieName = "csrftoken";
-axios.defaults.xsrfHeaderName = "X-CSRFToken";
-axios.defaults.withCredentials = true;
-
-const client = axios.create({
-  baseURL: "https://sirdaryoapi.pythonanywhere.com",
-});
+import { useContext } from "react";
+import { LoginContext } from "../context/LoginContext";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { setCurrentUser, submitLogin } = useContext(LoginContext);
+  const { currentUser } = useContext(LoginContext);
 
-  function submitLogin(e) {
-    e.preventDefault();
-    client
-      .post("/api/login", {
-        email: email,
-        password: password,
-      })
-      .then(function (res) {
-        setCurrentUser(true);
-      });
-  }
-  // const [formData, setFormData] = useState({
-  //   email: "",
-  //   password: "",
-  // });
+  const { isLoading } = useSelector((state) => state.auth);
 
-  // const { email, password } = formData;
-
-  // const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.auth
-  );
-
-  // const handleChange = (e) => {
-  //   setFormData((prev) => ({
-  //     ...prev,
-  //     [e.target.name]: e.target.value,
-  //   }));
-  // };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   const userData = {
-  //     email,
-  //     password,
-  //   };
-  //   dispatch(login(userData));
-  // };
-
-  // useEffect(() => {
-  //   if (isError) {
-  //     toast.error(message);
-  //   }
-
-  //   if (isSuccess || user) {
-  //     navigate("/dashboard");
-  //   }
-
-  //   dispatch(reset());
-  //   dispatch(getUserInfo());
-  // }, [isError, isSuccess, user, navigate, dispatch]);
 
   return (
     <>
@@ -83,28 +23,18 @@ const Login = () => {
 
         {isLoading && <Spinner />}
 
-        <form className="auth__form" onSubmit={(e) => submitLogin(e)}>
-          <input
-            type="email"
-            placeholder="email"
-            name="email"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
-            required
-          />
+        <form className="auth__form" onSubmit={submitLogin}>
+          <input type="text" placeholder="username" name="username" required />
           <input
             type="password"
             placeholder="password"
             name="password"
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
             required
           />
 
           <button
             className="bg-brandPrimary text-white py-2 px-4 transition-all duration-300 rounded hover:bg-neutralDGray"
             type="submit"
-            // onClick={() => navigate("/")}
           >
             Login
           </button>

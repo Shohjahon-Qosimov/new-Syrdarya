@@ -27,7 +27,9 @@ const HomePage = () => {
       <section id="stats" className="mt-[140px] ">
         <About />
       </section>
-      <Sponsor />
+      <section id="contact">
+        <Sponsor />
+      </section>
     </div>
   );
 };

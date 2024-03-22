@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import logo from "../assets/logo1.png";
 import { FaBars, FaWindowClose } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useContext } from "react";
+import { LoginContext } from "../context/LoginContext";
 
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
@@ -15,39 +17,22 @@ const client = axios.create({
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
-  const [currentUser, setCurrentUser] = useState();
+  const { currentUser } = useContext(LoginContext);
+  const { setCurrentUser } = useContext(LoginContext);
+  const { setAuthTokens } = useContext(LoginContext);
+
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  useEffect(() => {
-    client
-      .get("/api/user")
-      .then(function (res) {
-        setCurrentUser(true);
-      })
-      .catch(function (error) {
-        setCurrentUser(false);
-      });
-  }, []);
-
-  function submitLogout(e) {
-    e.preventDefault();
-    client.post("/api/logout", { withCredentials: true }).then(function (res) {
-      setCurrentUser(false);
-    });
-  }
-
-  // function update_form_btn() {
-  //   if (registrationToggle) {
-  //     document.getElementById("form_btn").innerHTML = "Register";
-  //     setRegistrationToggle(false);
-  //   } else {
-  //     document.getElementById("form_btn").innerHTML = "Log in";
-  //     setRegistrationToggle(true);
-  //   }
-  // }
+  const submitLogout = () => {
+    // setCurrentUser(null);
+    // setAuthTokens(null);
+    localStorage.removeItem("authTokens");
+    navigate("/");
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -64,12 +49,13 @@ const Navbar = () => {
     };
   });
 
-  //   const navItems = [
-  //     { link: "Bosh sahifa", path: "home" },
-  //     { link: "Xizmatlar", path: "service" },
-  //     { link: "Tizim Haqida", path: "about" },
-  //     { link: "Murojaatlar", path: "murojat" },
-  //   ];
+  const isRegister = () => {
+    if (currentUser) {
+      navigate("/murojat");
+    } else {
+      navigate("/register");
+    }
+  };
 
   return (
     <header className="w-full bg-transparent fixed top-0 left-0 right-0 ">
@@ -84,7 +70,6 @@ const Navbar = () => {
           <NavLink to="/">
             <img src={logo} alt="logo" className="w-1/3" />
           </NavLink>
-
           <ul className="md:flex space-x-12 hidden">
             <NavLink
               className="block text-base text-gray-900 hover:text-brandPrimary first:font-bold"
@@ -93,12 +78,12 @@ const Navbar = () => {
               Bosh<span className="text-white text-[8px]">.</span>sahifa
             </NavLink>
 
-            <NavLink
+            <a
               className="block text-base text-gray-900 hover:text-brandPrimary font-semibold"
-              to="#hero"
+              href="#contact"
             >
-              Xizmatlar
-            </NavLink>
+              Bog'lanish
+            </a>
 
             <a
               className="block text-base text-gray-900 hover:text-brandPrimary font-semibold"
@@ -108,19 +93,31 @@ const Navbar = () => {
             </a>
 
             <a
+              onClick={isRegister}
               className="block text-base text-gray-900 hover:text-brandPrimary font-semibold"
-              href="/murojat"
+              href=""
             >
-              Murojaatlar
+              Murojaat
             </a>
           </ul>
-
           {currentUser ? (
-            <form onSubmit={(e) => submitLogout(e)}>
-              <button type="submit" variant="light">
-                Log out
-              </button>
-            </form>
+            <>
+              <NavLink
+                to="/dashbord"
+                className="bg-neutralDGray text-white py-2 px-4 transition-all duration-300 rounded hover:bg-brandPrimary hide"
+              >
+                Dashbord
+              </NavLink>
+              <form onClick={submitLogout}>
+                <button
+                  type="submit"
+                  variant="light"
+                  className="bg-brandPrimary text-white py-2 px-4 transition-all duration-300 rounded hover:bg-neutralDGray hide"
+                >
+                  Logout
+                </button>
+              </form>
+            </>
           ) : (
             <div className="space-x-12 hidden lg:flex items-center">
               <NavLink
@@ -149,7 +146,6 @@ const Navbar = () => {
               )}
             </button>
           </div>
-
           <div
             className={`space-y-4 px-4 mt-16 py-7 bg-brandPrimary ${
               isMenuOpen ? "block fixed top-0 right-0 left-0" : "hidden"
@@ -164,9 +160,9 @@ const Navbar = () => {
 
             <a
               className="block text-base text-gray-900 hover:text-black first:font-medium"
-              href="#hero"
+              href="#contact"
             >
-              Xizmatlar
+              Bog'lanish
             </a>
 
             <a
@@ -177,23 +173,35 @@ const Navbar = () => {
             </a>
 
             <a
+              onClick={isRegister}
               className="block text-base text-gray-900 hover:text-black first:font-medium"
-              href="/murojat"
+              href=""
             >
-              Murojaatlar
+              Murojaat
             </a>
-            <div className="flex justify-start gap-3">
-              <a href="/login">
-                <button className="bg-neutralGray text-white py-2 px-4 transition-all duration-300 rounded hover:bg-neutralDGray ">
-                  Login
+            {currentUser ? (
+              <form onClick={submitLogout}>
+                <button
+                  variant="light"
+                  className="bg-neutralGray text-white py-2 px-4 transition-all duration-300 rounded hover:bg-neutralDGray "
+                >
+                  Logout
                 </button>
-              </a>
-              <a href="/register">
-                <button className="bg-neutralGray text-white py-2 px-4 transition-all duration-300 rounded hover:bg-neutralDGray">
-                  Register
-                </button>
-              </a>
-            </div>
+              </form>
+            ) : (
+              <div className="flex justify-start gap-3">
+                <a href="/login">
+                  <button className="bg-neutralGray text-white py-2 px-4 transition-all duration-300 rounded hover:bg-neutralDGray ">
+                    Login
+                  </button>
+                </a>
+                <a href="/register">
+                  <button className="bg-neutralGray text-white py-2 px-4 transition-all duration-300 rounded hover:bg-neutralDGray">
+                    Register
+                  </button>
+                </a>
+              </div>
+            )}
           </div>
         </div>
       </nav>

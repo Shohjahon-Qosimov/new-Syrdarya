@@ -1,63 +1,66 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Murojaat = () => {
-  var form = document.getElementById("form");
-  // var fish = document.getElementById("fish");
-  // var idpass = document.getElementById("idpass");
-  // var Yashashmanzili = document.getElementById("Yashashmanzili");
-  // var mfynom = document.getElementById("mfynom");
-  // var kochanomi = document.getElementById("kochanomi");
-  // var telefonraqam = document.getElementById("telefonraqam");
-  // var rasmvavidio = document.getElementById("rasmvavidio");
-  // var ariza_mazmuni = document.getElementById("ariza_mazmuni");
-  // var matn = document.getElementById("matn");
-  // form.addEventListener("submit", function (e) {
-  // e.preventDefault();
+  const [formValue, setFormValue] = useState({
+    fish: "",
+    idpassport: "",
+    Yashashmanzili: "",
+    mfynomi: "",
+    kochanomi: "",
+    telefonraqami: "",
+    rasmvavidio: "",
+    ariza_mazmuni: "",
+    matn: "",
+  });
 
-  var fish = document.getElementById("fish");
-  var idpass = document.getElementById("idpass");
-  var Yashashmanzili = document.getElementById("Yashashmanzili");
-  var mfynom = document.getElementById("mfynom");
-  var kochanomi = document.getElementById("kochanomi");
-  var telefonraqam = document.getElementById("telefonraqam");
-  var rasmvavidio = document.getElementById("rasmvavidio");
-  var ariza_mazmuni = document.getElementById("ariza_mazmuni");
-  var matn = document.getElementById("matn");
+  const navigate = useNavigate();
+  const emailData = localStorage.getItem("emailData");
+  // console.log(emailData);
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setFormValue({ ...formValue, [name]: value });
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const allInputvalue = {
+      fish: formValue.fish,
+      idpassport: formValue.idpassport,
+      Yashashmanzili: formValue.Yashashmanzili,
+      mfynomi: formValue.mfynomi,
+      kochanomi: formValue.kochanomi,
+      telefonraqami: formValue.telefonraqami,
+      rasmvavidio: formValue.rasmvavidio,
+      ariza_mazmuni: formValue.ariza_mazmuni,
+      matn: formValue.matn,
+      user: emailData,
+    };
 
-  console.log(rasmvavidio);
+    let res = await fetch("https://sirdarya777.pythonanywhere.com/api/", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(allInputvalue),
+    });
+    let resjson = await res.json();
+    if (res.status === 201) {
+      setTimeout(() => {
+        navigate("/dashbord");
+        toast.success("Murojaat Yuborildi!");
+      }, 2000);
+    } else {
+      toast.error("Nimadir xato ketdi!");
+    }
 
-  fetch("https://sirdarya777.pythonanywhere.com/api/", {
-    method: "POST",
-    body: JSON.stringify({
-      fish: fish,
-      idpassport: idpass,
-      Yashashmanzili: Yashashmanzili,
-      mfynomi: mfynom,
-      kochanomi: kochanomi,
-      telefonraqami: telefonraqam,
-      rasmvavidio: rasmvavidio,
-      ariza_mazmuni: ariza_mazmuni,
-      matn: matn,
-    }),
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-    },
-  })
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      console.log(data);
-    })
-    .catch((error) => console.error("Error:", error));
-  // alert("Murojatingiz Hokimiyatga Yuborildi");
+    // console.log(allInputvalue);
+  };
 
   return (
     <div className="flex justify-center items-center my-[100px]">
       <div className="form-container">
         <header>Murojaat Yo'llash</header>
 
-        <form action="#" method="post" id="form">
+        <form onSubmit={handleSubmit}>
           <div className="form first">
             <div className="details personal">
               <span className="title">Malumotlarni to`ldiring</span>
@@ -66,26 +69,34 @@ const Murojaat = () => {
                 <div className="input-field">
                   <label>To`liq Ism</label>
                   <input
+                    name="fish"
+                    value={formValue.fish}
+                    onChange={handleInput}
                     type="text"
-                    id="fish"
                     placeholder="F.I.SH"
-                    required=""
+                    required
                   />
                 </div>
 
                 <div className="input-field">
                   <label>Passport ID</label>
                   <input
+                    name="idpassport"
+                    value={formValue.idpassport}
+                    onChange={handleInput}
                     type="text"
-                    id="idpass"
                     placeholder="Passport Seriya yoki ID"
-                    required=""
+                    required
                   />
                 </div>
 
                 <div className="input-field">
                   <label>Yashash manzili</label>
-                  <select id="Yashashmanzili">
+                  <select
+                    name="Yashashmanzili"
+                    value={formValue.Yashashmanzili}
+                    onChange={handleInput}
+                  >
                     <option value="Guliston shaxar">Guliston shahar</option>
                     <option value="Mirzaobod tumani">Mirzaobod tumani</option>
                     <option value="Yangiyer shaxar">Yangiyer shahar</option>
@@ -102,7 +113,12 @@ const Murojaat = () => {
 
                 <div className="input-field mfy">
                   <label>MFY nomi</label>
-                  <select className="form-select" id="mfynom">
+                  <select
+                    name="mfynomi"
+                    className="form-select"
+                    value={formValue.mfynomi}
+                    onChange={handleInput}
+                  >
                     <option value="Boyovut">Boyovut Tumani</option>
                     <option value='"Маданият" МФЙ'>"Маданият" МФЙ</option>
                     <option value='"Ижодкор" МФЙ'>"Ижодкор" МФЙ</option>
@@ -384,9 +400,11 @@ const Murojaat = () => {
                 <div className="input-field">
                   <label>Ko`cha nomi</label>
                   <input
+                    name="kochanomi"
+                    value={formValue.kochanomi}
+                    onChange={handleInput}
                     type="text"
                     className="form-control"
-                    id="kochanomi"
                     placeholder="Ko'cha nomi"
                   />
                 </div>
@@ -394,9 +412,11 @@ const Murojaat = () => {
                 <div className="input-field">
                   <label>Telefon Raqam</label>
                   <input
+                    name="telefonraqami"
+                    value={formValue.telefonraqami}
+                    onChange={handleInput}
                     type="text"
                     className="form-control"
-                    id="telefonraqam"
                     placeholder="Telefon Raqam"
                   />
                 </div>
@@ -411,20 +431,25 @@ const Murojaat = () => {
               </p>
 
               <div className="fields">
-                <div class="input-field">
+                <div className="input-field">
                   <label>Rasm Yoki Video</label>
                   <input
+                    name="rasmvavidio"
+                    value={formValue.rasmvavidio}
+                    onChange={handleInput}
                     type="text"
-                    id="rasmvavidio"
                     placeholder="Rasm Yoki Video"
-                    value="none"
-                    required=""
+                    required
                   />
                 </div>
 
-                <div class="input-field mazmun">
-                  <label>Ariza Mazmuni</label>
-                  <select id="ariza_mazmuni">
+                <div className="input-field mazmun">
+                  <label>Ariza turi</label>
+                  <select
+                    name="ariza_mazmuni"
+                    value={formValue.ariza_mazmuni}
+                    onChange={handleInput}
+                  >
                     <option value="суд  масалалари">Cуд масалалари</option>
                     <option value="ички ишлар  фаол.">Ички ишлар фаол.</option>
                     <option value="прокуратура фаол. оид">
@@ -480,22 +505,25 @@ const Murojaat = () => {
                     <option value="бошқа масалалар">Бошқа масалалар</option>
                   </select>
                 </div>
-                <div class="input-field">
-                  <label>Text</label>
+                <div className="input-field">
+                  <label>Ariza mazmuni</label>
                   <input
+                    name="matn"
+                    value={formValue.matn}
+                    onChange={handleInput}
                     type="text"
-                    id="matn"
                     placeholder="Matn kiriting"
-                    required=""
+                    required
                   />
                 </div>
               </div>
 
-              <a href="/">
-                <button className="bg-brandPrimary text-white py-2 px-4 transition-all duration-300 rounded hover:bg-neutralDGray">
-                  Yuborish
-                </button>
-              </a>
+              <button
+                type="submit"
+                className="bg-brandPrimary text-white py-2 px-4 transition-all duration-300 rounded hover:bg-neutralDGray"
+              >
+                Yuborish
+              </button>
             </div>
           </div>
         </form>
