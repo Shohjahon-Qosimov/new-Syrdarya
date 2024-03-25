@@ -22,8 +22,11 @@ const About = () => {
   //   };
 
   return (
-    <div id="about" className="px-4 lg:px-14 max-w-screen-2x1 mx-auto  py-16 ">
-      <div className="flex flex-col md:flex-row justify-between items-center gap-8 ">
+    <div
+      id="about"
+      className="px-4 lg:px-14  md:mt-[250px] sm:mt-[200px]  max-w-screen-2x1 mx-auto"
+    >
+      <div className="flex flex-col md:flex-row justify-between items-center gap-8 mt-[100px]">
         <div className="md:w-1/2">
           <h2 className="text-[25px] text-neutralDGray font-semibold mb-4 md:w-2/3">
             Xalq murojaatlarini qabul qilish va ularni tegishli davlat

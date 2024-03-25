@@ -38,7 +38,7 @@ function App() {
   let submitLogin = async (e) => {
     e.preventDefault();
     let response = await fetch(
-      "http://sirdaryoapi.pythonanywhere.com/api/token/",
+      "https://sirdaryoapi.pythonanywhere.com/api/token/",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

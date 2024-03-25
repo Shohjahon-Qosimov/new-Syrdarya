@@ -1,73 +1,94 @@
 import React from "react";
-import logo from "../assets/logo1.png";
+import whitelogo from "../assets/whitelogo.png";
 
-import { Footer } from "flowbite-react";
 import {
   BsDribbble,
   BsFacebook,
   BsGithub,
   BsInstagram,
   BsTwitter,
+  BsPhone,
+  BsHouse,
+  BsMailbox,
 } from "react-icons/bs";
-import { NavLink } from "react-router-dom";
 
 const MyFooter = () => {
   return (
-    <Footer container className="bg-blue-300">
-      <div className="w-full ">
-        <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1 ">
-          <div className="space-y-4 mb-8">
-            <NavLink to="/">
-              <img src={logo} alt="logo" className="w-1/5" />
-            </NavLink>
-            <div className="mb-1">
-              <h1>Sirdaryo Murojaatlar Portali | 2024 - *</h1>
-              <p>Barcha huquqlar himoyalangan.</p>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">
-            {/* <div>
-              <Footer.Title title="about" />
-              <Footer.LinkGroup col>
-                <Footer.Link href="#">Flowbite</Footer.Link>
-                <Footer.Link href="#">Tailwind CSS</Footer.Link>
-              </Footer.LinkGroup>
-            </div> */}
-            <div>
-              <Footer.Title title="Bog'lanish" />
-              <Footer.LinkGroup col>
-                <Footer.Link href="#">Tel: (+998) 90-107-51-05</Footer.Link>
-                <Footer.Link href="#">Email: abs@gmail.com</Footer.Link>
-                {/* <Footer.Link href="#">Manzil: Sirdaryo viloyati </Footer.Link> */}
-              </Footer.LinkGroup>
-            </div>
-            {/* <div>
-              <Footer.Title title="Legal" />
-              <Footer.LinkGroup col>
-                <Footer.Link href="#">Privacy Policy</Footer.Link>
-                <Footer.Link href="#">Terms &amp; Conditions</Footer.Link>
-              </Footer.LinkGroup>
-            </div> */}
-          </div>
+    <footer className="bg-[#45526e] text-[#fff] text-center text-surface/75 dark:bg-neutral-700 dark:text-white/75 lg:text-left">
+      <div className="flex items-center justify-center border-b-2 border-neutral-200 p-6 dark:border-white/10 lg:justify-between">
+        <div className="me-12 hidden lg:block">
+          <span>Ijtimoiy tarmoqlarimiz:</span>
         </div>
-        <Footer.Divider />
-        <div className="w-full sm:flex sm:items-center sm:justify-between">
-          <Footer.Copyright
-            href="#"
-            by="Sirdaryo viloyati hokimligi
-Elektron hokimiyatni rivojlantirish markazi"
-            year={2024}
-          />
-          <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
-            <Footer.Icon href="#" icon={BsFacebook} />
-            <Footer.Icon href="#" icon={BsInstagram} />
-            <Footer.Icon href="#" icon={BsTwitter} />
-            <Footer.Icon href="#" icon={BsGithub} />
-            <Footer.Icon href="#" icon={BsDribbble} />
+
+        <div className="flex justify-center">
+          <a
+            href="https://www.facebook.com/shohjahon.qosimov.50?mibextid=kFxxJD"
+            className="me-5 "
+          >
+            <BsFacebook />
+          </a>
+          <a href="https://instagram.com/shohjahon6610" className="me-5 ">
+            <BsInstagram />
+          </a>
+          <a href="https://twitter.com/ShohjahonQ40296" className="me-5">
+            <BsTwitter />
+          </a>
+          <a href="https://github.com/Shohjahon-Qosimov" className="me-5">
+            <BsGithub />
+          </a>
+          <a href="#!" className="me-5">
+            <BsDribbble />
+          </a>
+        </div>
+      </div>
+
+      <div className="mx-6 py-10 text-center md:text-left flex justify-between ">
+        <div className="grid-1 grid gap-8 sm:gap-[100px] md:grid-cols-2 lg:grid-cols-2 text-[13px] sm:text-[15px]">
+          <div className="">
+            <h6 className="mb-4 flex items-center justify-center font-semibold uppercase md:justify-start">
+              <span
+                style={{ color: "white" }}
+                className="flex justify-center md:justify-start"
+              >
+                <img src={whitelogo} className="w-1/3"></img>
+              </span>
+            </h6>
+            <p>Sizning murojaatlaringiz biz uchun juda muhim!</p>
+          </div>
+
+          <div>
+            <h6 className="mb-4 flex justify-center font-semibold uppercase md:justify-start">
+              Bog'lanish
+            </h6>
+            <p className="mb-4 flex items-center justify-center md:justify-start">
+              <span className="me-3 [&>svg]:h-5 [&>svg]:w-5">
+                <BsHouse />
+              </span>
+              Guliston sh. Mustaqillik ko'chasi, 1-uy
+            </p>
+            <p className="mb-4 flex items-center justify-center md:justify-start">
+              <span className="me-3 [&>svg]:h-5 [&>svg]:w-5">
+                <BsMailbox />
+              </span>
+              shohjahonqosimov155@gmail.com
+            </p>
+            <p className="mb-4 flex items-center justify-center md:justify-start">
+              <span className="me-3 [&>svg]:h-5 [&>svg]:w-5">
+                <BsPhone />
+              </span>
+              +998(90)-107-51-05
+            </p>
           </div>
         </div>
       </div>
-    </Footer>
+
+      <div className="bg-black/5 p-6 text-center">
+        <span>© 2024 Copyright: </span>
+        <a className="font-semibold" href="https://tw-elements.com/">
+          my-Syrdarya.uz
+        </a>
+      </div>
+    </footer>
   );
 };
 

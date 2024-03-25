@@ -1,4 +1,8 @@
 import React from "react";
+import logo2 from "../assets/logo2.png";
+import unido from "../assets/unido.svg";
+import nearsol from "../assets/nearsol.svg";
+import epam from "../assets/epam.svg";
 
 const Sponsor = () => {
   return (
@@ -12,10 +16,10 @@ const Sponsor = () => {
         </p>
 
         <div className="my-12 flex flex-wrap justify-between items-center gap-8">
-          <img className="w-1/5" src="/src/assets/logo2.png" alt="itpark" />
-          <img className="w-1/6" src="/src/assets/epam.svg" alt="epam" />
-          <img className="w-1/4" src="/src/assets/nearsol.svg" alt="nearsol" />
-          <img className="w-1/4" src="/src/assets/unido.svg" alt="unido" />
+          <img className="w-1/5" src={logo2} alt="itpark" />
+          <img className="w-1/6" src={epam} alt="epam" />
+          <img className="w-1/4" src={nearsol} alt="nearsol" />
+          <img className="w-1/4" src={unido} alt="unido" />
         </div>
       </div>
     </div>

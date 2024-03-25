@@ -7,6 +7,8 @@ import gerb1 from "../assets/gerb1.png";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { LoginContext } from "../context/LoginContext";
+import { BiMessage } from "react-icons/bi";
+import { BiSolidMessageCheck } from "react-icons/bi";
 
 const Home = () => {
   const { currentUser } = useContext(LoginContext);
@@ -22,22 +24,30 @@ const Home = () => {
   };
 
   return (
-    <div className={``}>
-      <div className="px-4 lg:px-14 max-w-screen-2xl mx-auto min-h- h-screen">
-        <div className="flex justify-center items-center mt-[120px] bottom-0 font-bold text-[25px]">
+    <div className="">
+      <div className="px-4 lg:px-14 max-w-screen-2xl mx-auto h-screen">
+        <div className="flex justify-center items-center mt-[120px] font-bold text-[25px]">
           <img src={gerb1} alt="gerb" className="w-[100px]" />
           <h1>Sirdaryo viloyati Murojaatlar Portali</h1>
         </div>
-        <div className="flex justify-center items-start">
+        <div className="flex justify-center items-start mt-[20px]">
           <button
             onClick={isRegister}
-            className=" bg-brandPrimary text-white py-2 px-4 transition-all duration-300 rounded hover:bg-neutralDGray"
+            className=" bg-brandPrimary text-white font-bold py-2 px-4 transition-all duration-300 rounded hover:bg-neutralDGray"
           >
             Murojaat Yuborish
+            <span className="flex justify-center mt-1">
+              <BiSolidMessageCheck
+                style={{
+                  width: "18px",
+                  height: "18px",
+                }}
+              />
+            </span>
           </button>
         </div>
-        <Carousel className="w-full mx-auto sm:top-0">
-          <div className="my-28 md:my-8 py-12 flex flex-col md:flex-row-reverse items-center justify-between gap-12">
+        <Carousel className="w-full mx-auto">
+          <div className="md:my-8 py-12 flex flex-col md:flex-row-reverse items-center justify-between gap-12">
             <div>
               <img src={humans} className="" alt="humans" />
             </div>
@@ -51,7 +61,7 @@ const Home = () => {
               </h1>
             </div>
           </div>
-          <div className="my-28 md:my-8 py-12 flex flex-col md:flex-row-reverse items-center justify-between gap-12">
+          <div className="mt-10 md:mt-0 md:my-8 py-12 flex flex-col md:flex-row-reverse items-center justify-between gap-12">
             <ul className=" text-[18px] ">
               <li className="flex items-center mb-2">
                 <img src={check} alt="check" />
@@ -71,7 +81,7 @@ const Home = () => {
                 1062 MFY
               </li>
             </ul>
-            <div>
+            <div className="w-1/1.5">
               <img src={humans1} className="" alt="humans" />
             </div>
           </div>

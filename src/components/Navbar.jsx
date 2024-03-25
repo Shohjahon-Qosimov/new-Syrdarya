@@ -1,25 +1,14 @@
 import React, { useEffect, useState } from "react";
-import logo from "../assets/logo1.png";
+import mainlogo from "../assets/mainlogo.png";
 import { FaBars, FaWindowClose } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useContext } from "react";
 import { LoginContext } from "../context/LoginContext";
-
-axios.defaults.xsrfCookieName = "csrftoken";
-axios.defaults.xsrfHeaderName = "X-CSRFToken";
-axios.defaults.withCredentials = true;
-
-const client = axios.create({
-  baseURL: "https://sirdaryoapi.pythonanywhere.com",
-});
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
   const { currentUser } = useContext(LoginContext);
-  const { setCurrentUser } = useContext(LoginContext);
-  const { setAuthTokens } = useContext(LoginContext);
 
   const navigate = useNavigate();
 
@@ -68,25 +57,25 @@ const Navbar = () => {
       >
         <div className="flex justify-between items-center text-base gap-8">
           <NavLink to="/">
-            <img src={logo} alt="logo" className="w-1/3" />
+            <img src={mainlogo} alt="logo" className="w-1/3" />
           </NavLink>
           <ul className="md:flex space-x-12 hidden">
             <NavLink
-              className="block text-base text-gray-900 hover:text-brandPrimary first:font-bold"
+              className="block text-base text-gray-900 first:font-bold nav-hover"
               to="/"
             >
               Bosh<span className="text-white text-[8px]">.</span>sahifa
             </NavLink>
 
             <a
-              className="block text-base text-gray-900 hover:text-brandPrimary font-semibold"
+              className="block text-base text-gray-900 font-bold nav-hover"
               href="#contact"
             >
               Bog'lanish
             </a>
 
             <a
-              className="block text-base text-gray-900 hover:text-brandPrimary font-semibold"
+              className="block text-base text-gray-900 font-bold nav-hover"
               href="#stats"
             >
               Haqida
@@ -94,7 +83,7 @@ const Navbar = () => {
 
             <a
               onClick={isRegister}
-              className="block text-base text-gray-900 hover:text-brandPrimary font-semibold"
+              className="block text-base text-gray-900 font-bold nav-hover"
               href=""
             >
               Murojaat
@@ -121,7 +110,7 @@ const Navbar = () => {
           ) : (
             <div className="space-x-12 hidden lg:flex items-center">
               <NavLink
-                className="hidden font-semibold lg:flex items-center text-brandPrimary hover:text-gray-900"
+                className="hidden font-extrabold lg:flex items-start mb-1 text-brandPrimary hover:text-gray-900"
                 to="/login"
               >
                 Login

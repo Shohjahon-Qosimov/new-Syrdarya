@@ -24,7 +24,7 @@ const HomePage = () => {
       <section id="hero">
         <Home />
       </section>
-      <section id="stats" className="mt-[140px] ">
+      <section id="stats">
         <About />
       </section>
       <section id="contact">
