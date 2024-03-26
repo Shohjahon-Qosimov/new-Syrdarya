@@ -25,8 +25,8 @@ const Home = () => {
 
   return (
     <div className="">
-      <div className="px-4 lg:px-14 max-w-screen-2xl mx-auto h-screen">
-        <div className="flex justify-center items-center mt-[70px] font-bold text-[25px]">
+      <div className="px-4 lg:px-14 max-w-screen-2xl mx-auto h-screen lg:h-[600px]">
+        <div className="flex justify-center items-center mt-[70px] font-bold text-[25px] responsive">
           <img src={gerb1} alt="gerb" className="w-[80px]" />
           <h1 classname="">Sirdaryo viloyati Murojaatlar Portali</h1>
         </div>
@@ -46,7 +46,7 @@ const Home = () => {
             </span>
           </button>
         </div>
-        <Carousel className="w-full mx-auto h-[70%]">
+        <Carousel className="w-full mx-auto h-[70%] lg:h-[60%]">
           <div className="md:my-0 py-12 flex flex-col md:flex-row-reverse items-start justify-center gap-12">
             <div>
               <img src={humans} className="w-[400px]" alt="humans" />

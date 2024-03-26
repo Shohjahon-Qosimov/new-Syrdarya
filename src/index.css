@@ -366,11 +366,11 @@ form .buttons button , .backBtn{
   }
 }
 
-/* @media (max-width: 640px){
-  #about {
-    margin-top: 230px;
+@media (min-width: 1390px){
+  .responsive {
+    margin-top: 140px;
   }
-} */
+}
 
 
 /* Navbar */
