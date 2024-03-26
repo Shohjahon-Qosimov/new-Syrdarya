@@ -26,9 +26,9 @@ const Home = () => {
   return (
     <div className="">
       <div className="px-4 lg:px-14 max-w-screen-2xl mx-auto h-screen">
-        <div className="flex justify-center items-center mt-[120px] font-bold text-[25px]">
-          <img src={gerb1} alt="gerb" className="w-[100px]" />
-          <h1>Sirdaryo viloyati Murojaatlar Portali</h1>
+        <div className="flex justify-center items-center mt-[70px] font-bold text-[25px]">
+          <img src={gerb1} alt="gerb" className="w-[80px]" />
+          <h1 classname="">Sirdaryo viloyati Murojaatlar Portali</h1>
         </div>
         <div className="flex justify-center items-start mt-[20px]">
           <button
@@ -46,13 +46,13 @@ const Home = () => {
             </span>
           </button>
         </div>
-        <Carousel className="w-full mx-auto">
-          <div className="md:my-8 py-12 flex flex-col md:flex-row-reverse items-center justify-between gap-12">
+        <Carousel className="w-full mx-auto h-[70%]">
+          <div className="md:my-0 py-12 flex flex-col md:flex-row-reverse items-start justify-center gap-12">
             <div>
-              <img src={humans} className="" alt="humans" />
+              <img src={humans} className="w-[400px]" alt="humans" />
             </div>
-            <div className="md:w-1/2">
-              <h1 className="text-[15px] md:text-[30px] font-semibold mb-4 text-neutralDGray md:w-3/4 leading-snug">
+            <div className="md:mt-[60px] md:w-1/2">
+              <h1 className=" text-[15px] md:text-[27px] font-semibold mb-4 text-neutralDGray md:w-3/4 leading-snug">
                 Sizning murojaatingiz tegishliligi bo'yicha quyidagi{" "}
                 <span className="text-brandPrimary leading-snug">
                   tashkilotlarning mas'ul ijrochilari
@@ -61,7 +61,7 @@ const Home = () => {
               </h1>
             </div>
           </div>
-          <div className="mt-10 md:mt-0 md:my-8 py-12 flex flex-col md:flex-row-reverse items-center justify-between gap-12">
+          <div className="mt-3 md:my-0 py-12 md:pl-14 flex flex-col md:flex-row-reverse items-center justify-around gap-12">
             <ul className=" text-[18px] ">
               <li className="flex items-center mb-2">
                 <img src={check} alt="check" />
@@ -81,7 +81,7 @@ const Home = () => {
                 1062 MFY
               </li>
             </ul>
-            <div className="w-1/1.5">
+            <div className="md:w-1/3 w-1/2">
               <img src={humans1} className="" alt="humans" />
             </div>
           </div>
